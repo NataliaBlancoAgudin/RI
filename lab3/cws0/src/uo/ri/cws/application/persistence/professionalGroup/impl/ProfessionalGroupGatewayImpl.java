@@ -78,8 +78,33 @@ public class ProfessionalGroupGatewayImpl implements ProfessionalGroupGateway {
     @Override
     public Optional<ProfessionalGroupRecord> findById(String id)
 	throws PersistenceException {
-	// TODO Auto-generated method stub
-	return Optional.empty();
+	Optional<ProfessionalGroupRecord> op = Optional.empty();
+	try {
+	    Connection c = Jdbc.getCurrentConnection();
+	    try (PreparedStatement pst = c.prepareStatement(
+		Queries.getSQLSentence("TPROFESSIONALGROUPS_FINDBYID"))) {
+		pst.setString(1, id);
+		try (ResultSet rs = pst.executeQuery()) {
+		    if (rs.next()) {
+			ProfessionalGroupRecord p = new ProfessionalGroupRecord();
+			p.id = rs.getString("id");
+			p.createdAt = rs.getTimestamp("createdAt")
+			    .toLocalDateTime();
+			p.entityState = rs.getString("entityState");
+			p.name = rs.getString("name");
+			p.productivityRate = rs.getDouble("productivityRate");
+			p.trienniumPayment = rs.getDouble("trienniumPayment");
+			p.version = rs.getLong("version");
+
+			op = Optional.of(p);
+		    }
+
+		}
+	    }
+	} catch (SQLException e) {
+	    throw new PersistenceException(e);
+	}
+	return op;
     }
 
     @Override

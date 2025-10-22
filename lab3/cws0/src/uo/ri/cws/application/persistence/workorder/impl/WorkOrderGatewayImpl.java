@@ -1,10 +1,13 @@
 package uo.ri.cws.application.persistence.workorder.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -123,6 +126,37 @@ public class WorkOrderGatewayImpl implements WorkOrderGateway {
 	    throw new RuntimeException(e);
 	}
 	return listIn;
+    }
+
+    @Override
+    public double findTotalInvoicedForMechanicInMonth(String mechanicId,
+	LocalDate date) {
+	double total = 0.0;
+
+	YearMonth month = YearMonth.from(date);
+	LocalDate firstDay = month.atDay(1);
+	LocalDate lastDay = month.atEndOfMonth();
+
+	try {
+	    Connection c = Jdbc.getCurrentConnection();
+	    try (PreparedStatement pst = c
+		.prepareStatement(Queries.getSQLSentence(
+		    "TWORKORDERS_TOTAL_INVOICED_FOR_MECHANIC_IN_MONTH"))) {
+		pst.setString(1, mechanicId);
+		pst.setDate(2, Date.valueOf(firstDay));
+		pst.setDate(3, Date.valueOf(lastDay));
+
+		try (ResultSet rs = pst.executeQuery()) {
+		    if (rs.next()) {
+			total = rs.getDouble("total");
+		    }
+		}
+	    }
+	} catch (SQLException e) {
+	    throw new PersistenceException(e);
+	}
+
+	return total;
     }
 
 }

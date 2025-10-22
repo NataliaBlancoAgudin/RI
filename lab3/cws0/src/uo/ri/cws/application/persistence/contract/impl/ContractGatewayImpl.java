@@ -38,8 +38,41 @@ public class ContractGatewayImpl implements ContractGateway {
     @Override
     public Optional<ContractRecord> findById(String id)
 	throws PersistenceException {
-	// TODO Auto-generated method stub
-	return Optional.empty();
+	Optional<ContractRecord> oc = Optional.empty();
+	try {
+	    Connection c = Jdbc.getCurrentConnection();
+	    try (PreparedStatement pst = c.prepareStatement(
+		Queries.getSQLSentence("TCONTRACTS_FINDBYID"))) {
+		pst.setString(1, id);
+		try (ResultSet rs = pst.executeQuery()) {
+		    if (rs.next()) {
+			ContractRecord cr = new ContractRecord();
+			cr.id = rs.getString("id");
+			cr.annualbasesalary = rs.getDouble("annualBaseSalary");
+			cr.createdAt = rs.getTimestamp("createdAt")
+			    .toLocalDateTime();
+			cr.enddate = rs.getDate("endDate");
+			cr.entityState = rs.getString("entityState");
+			cr.settlement = rs.getDouble("settlement");
+			cr.startdate = rs.getDate("startDate");
+			cr.state = rs.getString("state");
+			cr.taxrate = rs.getDouble("taxRate");
+			cr.updatedAt = rs.getTimestamp("updatedAt")
+			    .toLocalDateTime();
+			cr.version = rs.getLong("version");
+			cr.contracttype_id = rs.getString("contracttype_id");
+			cr.mechanic_id = rs.getString("mechanic_id");
+			cr.professionalgroup_id = rs
+			    .getString("professionalgroup_id");
+
+			oc = Optional.of(cr);
+		    }
+		}
+	    }
+	} catch (SQLException e) {
+	    throw new PersistenceException(e);
+	}
+	return oc;
     }
 
     @Override
@@ -54,7 +87,7 @@ public class ContractGatewayImpl implements ContractGateway {
 	try {
 	    Connection c = Jdbc.getCurrentConnection();
 	    try (PreparedStatement pst = c.prepareStatement(
-		Queries.getSQLSentence("TCONTRACT_BY_MECHANIC_ID"))) {
+		Queries.getSQLSentence("TCONTRACTS_BY_MECHANIC_ID"))) {
 		pst.setString(1, id);
 		try (ResultSet rs = pst.executeQuery()) {
 		    while (rs.next()) {
@@ -74,7 +107,7 @@ public class ContractGatewayImpl implements ContractGateway {
 	try {
 	    Connection c = Jdbc.getCurrentConnection();
 	    try (PreparedStatement pst = c.prepareStatement(Queries
-		.getSQLSentence("TCONTRACT_BY_PROFESSIONALGROUP_NAME"))) {
+		.getSQLSentence("TCONTRACTS_BY_PROFESSIONALGROUP_NAME"))) {
 		pst.setString(1, name);
 		try (ResultSet rs = pst.executeQuery()) {
 		    while (rs.next()) {
@@ -100,7 +133,7 @@ public class ContractGatewayImpl implements ContractGateway {
 	try {
 	    Connection c = Jdbc.getCurrentConnection();
 	    try (PreparedStatement pst = c.prepareStatement(
-		Queries.getSQLSentence("TCONTRACT_IN_MONTH"))) {
+		Queries.getSQLSentence("TCONTRACTS_IN_MONTH"))) {
 		pst.setDate(1, Date.valueOf(lastDay));
 		pst.setDate(2, Date.valueOf(firstDay));
 		try (ResultSet rs = pst.executeQuery()) {

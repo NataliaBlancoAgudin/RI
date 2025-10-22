@@ -6,7 +6,13 @@ import java.util.Optional;
 
 import uo.ri.cws.application.persistence.util.command.CommandExecutor;
 import uo.ri.cws.application.service.payroll.PayrollService;
-import uo.ri.cws.application.service.payroll.crud.commands.GenerateForPreviousMonthOf;
+import uo.ri.cws.application.service.payroll.crud.commands.DeleteLastMonthPayroll;
+import uo.ri.cws.application.service.payroll.crud.commands.DeleteLastMonthPayrollOfMechanic;
+import uo.ri.cws.application.service.payroll.crud.commands.FindAllSummarized;
+import uo.ri.cws.application.service.payroll.crud.commands.GeneratePayrollsAtDate;
+import uo.ri.cws.application.service.payroll.crud.commands.ListPayrollsOfMechanic;
+import uo.ri.cws.application.service.payroll.crud.commands.ListPayrollsOfProfGroup;
+import uo.ri.cws.application.service.payroll.crud.commands.ShowPayroll;
 import uo.ri.util.exception.BusinessException;
 
 public class PayrollCrudServiceImpl implements PayrollService {
@@ -24,47 +30,42 @@ public class PayrollCrudServiceImpl implements PayrollService {
     @Override
     public List<PayrollDto> generateForPreviousMonthOf(LocalDate present)
 	throws BusinessException {
-	return executor.execute(new GenerateForPreviousMonthOf(present));
+	return executor.execute(new GeneratePayrollsAtDate(present));
     }
 
     @Override
     public void deleteLastGeneratedOfMechanicId(String mechanicId)
 	throws BusinessException {
-	// TODO Auto-generated method stub
+	executor.execute(new DeleteLastMonthPayrollOfMechanic(mechanicId));
 
     }
 
     @Override
     public int deleteLastGenerated() throws BusinessException {
-	// TODO Auto-generated method stub
-	return 0;
+	return executor.execute(new DeleteLastMonthPayroll());
     }
 
     @Override
     public Optional<PayrollDto> findById(String id) throws BusinessException {
-	// TODO Auto-generated method stub
-	return Optional.empty();
+	return executor.execute(new ShowPayroll(id));
     }
 
     @Override
     public List<PayrollSummaryDto> findAllSummarized()
 	throws BusinessException {
-	// TODO Auto-generated method stub
-	return null;
+	return executor.execute(new FindAllSummarized());
     }
 
     @Override
     public List<PayrollSummaryDto> findSummarizedByMechanicId(String id)
 	throws BusinessException {
-	// TODO Auto-generated method stub
-	return null;
+	return executor.execute(new ListPayrollsOfMechanic(id));
     }
 
     @Override
     public List<PayrollSummaryDto> findSummarizedByProfessionalGroupName(
 	String name) throws BusinessException {
-	// TODO Auto-generated method stub
-	return null;
+	return executor.execute(new ListPayrollsOfProfGroup(name));
     }
 
 }

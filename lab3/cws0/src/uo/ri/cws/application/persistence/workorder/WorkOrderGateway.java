@@ -1,5 +1,6 @@
 package uo.ri.cws.application.persistence.workorder;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,6 +26,17 @@ public interface WorkOrderGateway extends Gateway<WorkorderRecord> {
      * @return
      */
     public List<String> findByMechanicId(String id);
+
+    /**
+     * Devuelve la suma total de los importes de las workorders reparadas por el
+     * mecanico en un mes dado
+     * 
+     * @param mechanicId
+     * @param date
+     * @return
+     */
+    public double findTotalInvoicedForMechanicInMonth(String mechanicId,
+	LocalDate date);
 
     /// FOTOCOPIA DE LA BASE DE DATOS
     public class WorkorderRecord {
