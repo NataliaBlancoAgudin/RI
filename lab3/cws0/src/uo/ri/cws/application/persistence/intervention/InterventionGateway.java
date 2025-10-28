@@ -9,10 +9,13 @@ import uo.ri.cws.application.persistence.intervention.InterventionGateway.Interv
 public interface InterventionGateway extends Gateway<InterventionRecord> {
 
     /**
-     * Busca intervenciones por el id del mecanico
+     * findByMechanicId: Busca intervenciones por el id del mecanico
      * 
-     * @param id
-     * @return
+     * @param id String: Id del mecanico
+     * @return List String
+     * 
+     *         Ejemplo de uso: List<String> lista =
+     *         interventionGateway.findByMechanicId("mechanicId");
      */
     public List<String> findByMechanicId(String id);
 

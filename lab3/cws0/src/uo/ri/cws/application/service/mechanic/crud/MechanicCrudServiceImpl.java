@@ -19,44 +19,32 @@ public class MechanicCrudServiceImpl implements MechanicCrudService {
 
     @Override
     public MechanicDto create(MechanicDto dto) throws BusinessException {
-//	AddMechanic am = new AddMechanic(dto);
-//	return am.execute();
 	return executor.execute(new AddMechanic(dto));
     }
 
     @Override
     public void delete(String mechanicId) throws BusinessException {
-//	DeleteMechanic dm = new DeleteMechanic(mechanicId);
-//	dm.execute();
 	executor.execute(new DeleteMechanic(mechanicId));
     }
 
     @Override
     public void update(MechanicDto dto) throws BusinessException {
-//	UpdateMechanic um = new UpdateMechanic(dto);
-//	um.execute();
 	executor.execute(new UpdateMechanic(dto));
     }
 
     @Override
     public Optional<MechanicDto> findById(String id) throws BusinessException {
-//	FindById fby = new FindById(id);
-//	return fby.execute();
 	return executor.execute(new FindById(id));
     }
 
     @Override
     public Optional<MechanicDto> findByNif(String nif)
 	throws BusinessException {
-//	ListMechanic lm = new ListMechanic(nif);
-//	return lm.execute();
 	return executor.execute(new ListMechanic(nif));
     }
 
     @Override
     public List<MechanicDto> findAll() throws BusinessException {
-//	ListAllMechanics lm = new ListAllMechanics();
-//	return lm.execute();
 	return executor.execute(new ListAllMechanics());
     }
 

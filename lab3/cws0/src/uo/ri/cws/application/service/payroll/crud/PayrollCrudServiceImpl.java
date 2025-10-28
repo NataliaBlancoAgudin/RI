@@ -8,7 +8,7 @@ import uo.ri.cws.application.persistence.util.command.CommandExecutor;
 import uo.ri.cws.application.service.payroll.PayrollService;
 import uo.ri.cws.application.service.payroll.crud.commands.DeleteLastMonthPayroll;
 import uo.ri.cws.application.service.payroll.crud.commands.DeleteLastMonthPayrollOfMechanic;
-import uo.ri.cws.application.service.payroll.crud.commands.FindAllSummarized;
+import uo.ri.cws.application.service.payroll.crud.commands.ListAllPayrollsSummarized;
 import uo.ri.cws.application.service.payroll.crud.commands.GeneratePayrollsAtDate;
 import uo.ri.cws.application.service.payroll.crud.commands.ListPayrollsOfMechanic;
 import uo.ri.cws.application.service.payroll.crud.commands.ListPayrollsOfProfGroup;
@@ -53,7 +53,7 @@ public class PayrollCrudServiceImpl implements PayrollService {
     @Override
     public List<PayrollSummaryDto> findAllSummarized()
 	throws BusinessException {
-	return executor.execute(new FindAllSummarized());
+	return executor.execute(new ListAllPayrollsSummarized());
     }
 
     @Override

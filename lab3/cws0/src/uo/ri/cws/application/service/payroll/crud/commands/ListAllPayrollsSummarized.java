@@ -9,7 +9,7 @@ import uo.ri.cws.application.persistence.util.command.Command;
 import uo.ri.cws.application.service.payroll.PayrollService.PayrollSummaryDto;
 import uo.ri.cws.application.service.payroll.crud.PayrollDtoAssembler;
 
-public class FindAllSummarized implements Command<List<PayrollSummaryDto>> {
+public class ListAllPayrollsSummarized implements Command<List<PayrollSummaryDto>> {
 
     // gateway que necesito
     PayrollGateway pg = Factories.persistence.forPayroll();

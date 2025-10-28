@@ -1,0 +1,5 @@
+Natalia Blanco Agudín - UO295340
+
+Todos los test dados en la primera sesión de JDBC (cws_contracts_payrolls_acceptance_tests) pasan sin ningún problema.
+He intentado importar los test que nos dieron en la práctica 5, pero no los puedo ejecutar debido a que el pom.xml tiene errores.
+Al solucionar el error del pom.xml, dichos tests no se me ejecutan, no se si es porque no los importe bien.

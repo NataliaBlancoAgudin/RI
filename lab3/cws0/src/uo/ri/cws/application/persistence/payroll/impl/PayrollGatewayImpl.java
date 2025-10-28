@@ -63,7 +63,7 @@ public class PayrollGatewayImpl implements PayrollGateway {
 
     @Override
     public void update(PayrollRecord t) throws PersistenceException {
-	// TODO Auto-generated method stub
+	// no implementado
 
     }
 
@@ -326,5 +326,27 @@ public class PayrollGatewayImpl implements PayrollGateway {
 
 	return lp;
     }
+
+//    @Override
+//    public int countPayrollsByContractId(String contract_id) {
+//	int count = 0;
+//	try {
+//	    Connection c = Jdbc.getCurrentConnection();
+//	    try (PreparedStatement pst = c.prepareStatement(
+//		Queries.getSQLSentence("TPAYROLLS_COUNT_BY_CONTRACT"))) {
+//		pst.setString(1, contract_id);
+//
+//		try (ResultSet rs = pst.executeQuery()) {
+//		    if (rs.next()) {
+//			count = rs.getInt("count");
+//		    }
+//		}
+//	    }
+//	} catch (SQLException e) {
+//	    throw new PersistenceException(e);
+//	}
+//
+//	return count;
+//    }
 
 }

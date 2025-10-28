@@ -10,11 +10,13 @@ public interface ProfessionalGroupGateway
     extends Gateway<ProfessionalGroupRecord> {
 
     /**
-     * Busca el professionalGroup por el nombre dado
+     * findByName: Busca el professionalGroup por el nombre dado
      * 
-     * @param name
-     * @return Optional ProfessionalGroupRecord cuyo nombre sea el pasado como
-     *         parametro
+     * @param name String: Nombre del professionalGroup
+     * @return Optional ProfessionalGroupRecord
+     * 
+     *         Ejemplo de uso: Optional<ProfessionalGroupRecord> o =
+     *         professionalgroupGateway.findByName("groupName")
      */
     public Optional<ProfessionalGroupRecord> findByName(String name);
 

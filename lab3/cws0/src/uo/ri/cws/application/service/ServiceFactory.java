@@ -3,6 +3,7 @@ package uo.ri.cws.application.service;
 import uo.ri.cws.application.service.client.ClientCrudService;
 import uo.ri.cws.application.service.client.ClientHistoryService;
 import uo.ri.cws.application.service.contract.ContractCrudService;
+import uo.ri.cws.application.service.contract.crud.ContractCrudServiceImpl;
 import uo.ri.cws.application.service.contracttype.ContractTypeCrudService;
 import uo.ri.cws.application.service.invoice.InvoicingService;
 import uo.ri.cws.application.service.invoice.crud.InvoiceCrudServiceImpl;
@@ -37,6 +38,10 @@ public class ServiceFactory {
 	return new PayrollCrudServiceImpl();
     }
 
+    public ContractCrudService forContractCrudService() {
+	return new ContractCrudServiceImpl();
+    }
+
     // the not yet implemented section ------------------------------
 
     public VehicleCrudService forVehicleCrudService() {
@@ -44,10 +49,6 @@ public class ServiceFactory {
     }
 
     public SparePartCrudService forSparePartCrudService() {
-	throw new NotYetImplementedException();
-    }
-
-    public ContractCrudService forContractCrudService() {
 	throw new NotYetImplementedException();
     }
 

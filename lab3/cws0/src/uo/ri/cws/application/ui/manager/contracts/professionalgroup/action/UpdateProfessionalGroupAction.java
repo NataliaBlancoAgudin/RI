@@ -1,5 +1,7 @@
 package uo.ri.cws.application.ui.manager.contracts.professionalgroup.action;
 
+import java.util.Optional;
+
 import uo.ri.conf.Factories;
 import uo.ri.cws.application.service.professionalgroup.ProfessionalGroupCrudService;
 import uo.ri.cws.application.service.professionalgroup.ProfessionalGroupCrudService.ProfessionalGroupDto;
@@ -23,6 +25,10 @@ public class UpdateProfessionalGroupAction implements Action {
 
 	ProfessionalGroupCrudService pgs = Factories.service
 	    .forProfessionalGroupCrudService();
+	/// Cogemos la version antes de actulizar porque sino rompe en la UI
+	Optional<ProfessionalGroupDto> op = pgs.findByName(name);
+	dto.version = op.get().version;
+
 	pgs.update(dto);
 
 	Console.println("Professional group updated");

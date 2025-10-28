@@ -37,8 +37,6 @@ public class UpdateMechanic implements Command<Void> {
 	/// ESTO HAY QUE HACERLO CON TODOS LOS UPDATE
 	BusinessChecks.hasVersion(dto.version, om.get().version);
 
-	/// HAY QUE CREAR UN DTO ASSEMLBER (YA LO CREE EN EL PAQUETE SERVICE Y
-	/// SERÁ EL QUE PASE DE DTO A RECORD
 	mg.update(MechanicDtoAssembler.toRecord(dto));
 
 	return null;

@@ -19,19 +19,19 @@ public class ContractGatewayImpl implements ContractGateway {
 
     @Override
     public void add(ContractRecord t) throws PersistenceException {
-	// TODO Auto-generated method stub
+	// no implementado
 
     }
 
     @Override
     public void remove(String id) throws PersistenceException {
-	// TODO Auto-generated method stub
+	// no implementado
 
     }
 
     @Override
     public void update(ContractRecord t) throws PersistenceException {
-	// TODO Auto-generated method stub
+	// no implementado
 
     }
 
@@ -77,7 +77,7 @@ public class ContractGatewayImpl implements ContractGateway {
 
     @Override
     public List<ContractRecord> findAll() throws PersistenceException {
-	// TODO Auto-generated method stub
+	// no implementado
 	return null;
     }
 
@@ -102,13 +102,13 @@ public class ContractGatewayImpl implements ContractGateway {
     }
 
     @Override
-    public List<String> findByProfessionalGroupName(String name) {
+    public List<String> findByProfessionalGroupId(String id) {
 	List<String> plist = new ArrayList<>();
 	try {
 	    Connection c = Jdbc.getCurrentConnection();
 	    try (PreparedStatement pst = c.prepareStatement(Queries
 		.getSQLSentence("TCONTRACTS_BY_PROFESSIONALGROUP_NAME"))) {
-		pst.setString(1, name);
+		pst.setString(1, id);
 		try (ResultSet rs = pst.executeQuery()) {
 		    while (rs.next()) {
 			plist.add(rs.getString("id"));
@@ -139,6 +139,45 @@ public class ContractGatewayImpl implements ContractGateway {
 		try (ResultSet rs = pst.executeQuery()) {
 		    while (rs.next()) {
 			plist.add(rs.getString("id"));
+		    }
+		}
+	    }
+	} catch (SQLException e) {
+	    throw new PersistenceException(e);
+	}
+
+	return plist;
+    }
+
+    @Override
+    public List<ContractRecord> findInForceContracts() {
+	List<ContractRecord> plist = new ArrayList<>();
+
+	try {
+	    Connection c = Jdbc.getCurrentConnection();
+	    try (PreparedStatement pst = c.prepareStatement(
+		Queries.getSQLSentence("TCONTRACTS_IN_FORCE"))) {
+		try (ResultSet rs = pst.executeQuery()) {
+		    while (rs.next()) {
+			ContractRecord cr = new ContractRecord();
+			cr.id = rs.getString("id");
+			cr.annualbasesalary = rs.getDouble("annualBaseSalary");
+			cr.createdAt = rs.getTimestamp("createdAt")
+			    .toLocalDateTime();
+			cr.entityState = rs.getString("entityState");
+			cr.settlement = rs.getDouble("settlement");
+			cr.startdate = rs.getDate("startDate");
+			cr.state = rs.getString("state");
+			cr.taxrate = rs.getDouble("taxRate");
+			cr.updatedAt = rs.getTimestamp("updatedAt")
+			    .toLocalDateTime();
+			cr.version = rs.getLong("version");
+			cr.contracttype_id = rs.getString("contracttype_id");
+			cr.mechanic_id = rs.getString("mechanic_id");
+			cr.professionalgroup_id = rs
+			    .getString("professionalgroup_id");
+
+			plist.add(cr);
 		    }
 		}
 	    }

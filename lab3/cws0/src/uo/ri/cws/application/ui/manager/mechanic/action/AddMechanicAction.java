@@ -13,23 +13,12 @@ public class AddMechanicAction implements Action {
     public void execute() throws BusinessException {
 
 	// Get info
-	/// 1. Tenemos que encapsular la info en el dto
 	MechanicDto dto = new MechanicDto();
 
 	dto.nif = Console.readString("nif");
 	dto.name = Console.readString("Name");
 	dto.surname = Console.readString("Surname");
 
-	/// 2. Creamos el objeto de negocio
-//	AddMechanic am = new AddMechanic(dto);
-//	am.execute();
-
-	/// 3. Ahora esto pasará a la implementación del servicio y lo
-	/// llamaremos
-//	MechanicCrudService mcs = new MechanicCrudServiceImpl();
-//	mcs.create(dto);
-
-	/// 4. Ahora llamamos a la factoria
 	MechanicCrudService mcs = Factories.service.forMechanicCrudService();
 	mcs.create(dto);
 

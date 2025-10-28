@@ -54,7 +54,6 @@ public class GeneratePayrollsAtDate implements Command<List<PayrollDto>> {
 	// 3. Busca contratos en vigor o terminados en ese mes
 	List<String> contractIds = cg
 	    .findContractsInMonth(lastDayOfPreviousMonth);
-	System.out.println("contratos " + contractIds.size());
 
 	List<PayrollDto> generatedPayrolls = new ArrayList<>();
 

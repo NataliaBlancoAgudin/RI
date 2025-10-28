@@ -15,8 +15,6 @@ import uo.ri.util.exception.BusinessException;
 
 public class AddMechanic implements Command<MechanicDto> {
 
-//    private static final String TMECHANIC_EXISTS_BY_NIF = "SELECT id FROM TMechanics WHERE nif = ?";
-
     private MechanicDto dto;
 
     /// TDGs que necesito

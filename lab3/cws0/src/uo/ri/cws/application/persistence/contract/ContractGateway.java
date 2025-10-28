@@ -11,28 +11,48 @@ import uo.ri.cws.application.persistence.contract.ContractGateway.ContractRecord
 public interface ContractGateway extends Gateway<ContractRecord> {
 
     /**
-     * Busca contract a partir del id del mecanico
+     * findByMechanicId: Busca contract a partir del id del mecanico
      * 
-     * @param id
-     * @return
+     * @param id String: Id del mecanico
+     * @return List String
+     * 
+     *         Ejemplo de uso: List<String> lista =
+     *         contractGateway.findByMechanicId("mechanicId");
      */
     public List<String> findByMechanicId(String id);
 
     /**
-     * Busca contract a partir del name de professionalGroup
+     * findByProfessionalGroupId: Busca contract a partir del name de
+     * professionalGroup
      * 
-     * @param name
-     * @return
+     * @param name String: Nombre del grupo profesional
+     * @return List String
+     * 
+     *         Ejemplo de uso: List<String> plist =
+     *         contractGateway.findByProfessionalGroupId("id");
      */
-    public List<String> findByProfessionalGroupName(String name);
+    public List<String> findByProfessionalGroupId(String id);
 
     /**
-     * Busca contract (terminated o in force) de un mes
+     * findContractsInMonth: Busca contract (terminated o in force) de un mes
      * 
-     * @param date
-     * @return
+     * @param date LocalDate: fecha
+     * @return List String
+     * 
+     *         Ejemplo de uso: List<String> lista = contractGateway
+     *         .findContractsInMonth(date);
      */
     public List<String> findContractsInMonth(LocalDate date);
+
+    /**
+     * findInForceContracts: Busca todos los contracts que esten IN FORCE
+     * 
+     * @return List ContractRecord
+     * 
+     *         Ejemplo de uso: List<ContractRecord> lista =
+     *         contractGateway.findInForceContracts()
+     */
+    public List<ContractRecord> findInForceContracts();
 
     /// FOTOCOPIA DE LA BASE DE DATOS
     public class ContractRecord {

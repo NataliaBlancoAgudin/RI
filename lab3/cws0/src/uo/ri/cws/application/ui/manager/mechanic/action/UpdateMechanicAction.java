@@ -1,5 +1,7 @@
 package uo.ri.cws.application.ui.manager.mechanic.action;
 
+import java.util.Optional;
+
 import uo.ri.conf.Factories;
 import uo.ri.cws.application.service.mechanic.MechanicCrudService;
 import uo.ri.cws.application.service.mechanic.MechanicCrudService.MechanicDto;
@@ -12,7 +14,6 @@ public class UpdateMechanicAction implements Action {
     @Override
     public void execute() throws BusinessException {
 
-	/// 1. Creamos el dto
 	MechanicDto dto = new MechanicDto();
 	// Get info
 	String id = Console.readString("Type mechahic id to update");
@@ -24,16 +25,13 @@ public class UpdateMechanicAction implements Action {
 	dto.name = name;
 	dto.surname = surname;
 
-	/// 1. Creamos el objeto de negocio
-//	UpdateMechanic um = new UpdateMechanic(dto);
-//	um.execute();
-
-	/// 2. Ahora se pasará a la impleementación del servicio
-//	MechanicCrudService mcs = new MechanicCrudServiceImpl();
-//	mcs.update(dto);
-
-	/// 3. Ahora lo llamamos en la factoria
 	MechanicCrudService mcs = Factories.service.forMechanicCrudService();
+	/// Buscamos al mecanico para poder pasarle el nif y la version (esto es
+	/// para la UI, porque sino rompe)
+	Optional<MechanicDto> m = mcs.findById(id);
+	dto.nif = m.get().nif;
+	dto.version = m.get().version;
+
 	mcs.update(dto);
 
 	// Print result

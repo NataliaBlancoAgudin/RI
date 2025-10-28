@@ -17,32 +17,32 @@ public class InterventionGatewayImpl implements InterventionGateway {
 
     @Override
     public void add(InterventionRecord t) throws PersistenceException {
-	// TODO Auto-generated method stub
+	// no implementado
 
     }
 
     @Override
     public void remove(String id) throws PersistenceException {
-	// TODO Auto-generated method stub
+	// no implementado
 
     }
 
     @Override
     public void update(InterventionRecord t) throws PersistenceException {
-	// TODO Auto-generated method stub
+	// no implementado
 
     }
 
     @Override
     public Optional<InterventionRecord> findById(String id)
 	throws PersistenceException {
-	// TODO Auto-generated method stub
+	// no implementado
 	return Optional.empty();
     }
 
     @Override
     public List<InterventionRecord> findAll() throws PersistenceException {
-	// TODO Auto-generated method stub
+	// no implementado
 	return null;
     }
 
@@ -61,7 +61,7 @@ public class InterventionGatewayImpl implements InterventionGateway {
 		}
 	    }
 	} catch (SQLException e) {
-	    throw new RuntimeException(e);
+	    throw new PersistenceException(e);
 	}
 	return ids;
 

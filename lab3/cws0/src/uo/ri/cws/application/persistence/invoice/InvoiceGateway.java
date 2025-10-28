@@ -9,9 +9,12 @@ import uo.ri.cws.application.persistence.invoice.InvoiceGateway.InvoiceRecord;
 public interface InvoiceGateway extends Gateway<InvoiceRecord> {
 
     /**
-     * Devuelve el ultimo numero (invoice identity) de la tabla invoice
+     * findNextNumber: Encuentra el ultimo numero (invoice identity) de la tabla
+     * invoice
      * 
-     * @return
+     * @return long
+     * 
+     *         Ejemplo de uso: Long number = invoiceGateway.findNextNumber();
      */
     public long findNextNumber();
 

@@ -17,21 +17,12 @@ public class ListMechanicAction implements Action {
 	// Get info
 	String nif = Console.readString("nif");
 
-	/// 1. Creamos el objeto de negocio
-//	ListMechanic lm = new ListMechanic(nif);
-//	lm.execute();
-
-	/// 2. Ahora lo pasamos a la implementación de servicio
-//	MechanicCrudService mcs = new MechanicCrudServiceImpl();
-//	mcs.findById(nif);
-
-	/// 3. Ahora llamamos a la factoria
 	MechanicCrudService mcs = Factories.service.forMechanicCrudService();
 	Optional<MechanicDto> omdto = mcs.findByNif(nif);
 
 	Console.println("\nMechanic information \n");
 
-	// 4. Imprimimos si existe información
+	// Imprimimos si existe información
 	if (omdto.isPresent()) {
 	    MechanicDto dto = omdto.get();
 	    Console.printf("\t%s %s %s %s %d\n", dto.id, dto.name, dto.surname,

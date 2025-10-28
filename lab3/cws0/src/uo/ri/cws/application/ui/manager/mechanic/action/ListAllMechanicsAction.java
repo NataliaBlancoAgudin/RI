@@ -14,19 +14,10 @@ public class ListAllMechanicsAction implements Action {
     @Override
     public void execute() throws BusinessException {
 
-	/// 1. Creamos el objeto de negocio
-//	ListAllMechanics lm = new ListAllMechanics();
-//	lm.execute();
-
-	/// 2. Lo pasamos a la implementación de servicio
-//	MechanicCrudService mcs = new MechanicCrudServiceImpl();
-//	mcs.findAll();
-
-	// 3. Ahora llamamos a la factoria
 	MechanicCrudService mcs = Factories.service.forMechanicCrudService();
 	List<MechanicDto> listdto = mcs.findAll();
 
-	// 4. Imprimimos la lista
+	// Imprimimos la lista
 	Console.println("\nList of mechanics \n");
 
 	for (MechanicDto m : listdto) {

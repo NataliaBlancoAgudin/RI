@@ -13,15 +13,6 @@ public class DeleteMechanicAction implements Action {
 
 	String idMechanic = Console.readString("Type mechanic id ");
 
-	/// 2. Creamos el objeto de negocio
-//	DeleteMechanic dm = new DeleteMechanic(idMechanic);
-//	dm.execute();
-
-	/// 3. Llamamos a la implementación del servicio
-//	MechanicCrudService mcs = new MechanicCrudServiceImpl();
-//	mcs.delete(idMechanic);
-
-	/// 4. Ahora llamamos a la factoria
 	MechanicCrudService mcs = Factories.service.forMechanicCrudService();
 	mcs.delete(idMechanic);
 

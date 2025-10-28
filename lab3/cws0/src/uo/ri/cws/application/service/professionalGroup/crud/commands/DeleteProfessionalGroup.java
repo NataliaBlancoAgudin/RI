@@ -34,11 +34,11 @@ public class DeleteProfessionalGroup implements Command<Void> {
 	BusinessChecks.exists(op, "The professionalgroup does not exist");
 
 	String id = op.get().id;
-	List<String> plist = cg.findByProfessionalGroupName(id);
+	List<String> plist = cg.findByProfessionalGroupId(id);
 	BusinessChecks.isEmpty(plist,
 	    "ProfessionalGroup has contracts assigned");
 
-	pg.remove(name);
+	pg.remove(id);
 
 	return null;
     }

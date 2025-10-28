@@ -22,13 +22,13 @@ public class WorkOrderGatewayImpl implements WorkOrderGateway {
 
     @Override
     public void add(WorkorderRecord t) throws PersistenceException {
-	// TODO Auto-generated method stub
+	// no implementado
 
     }
 
     @Override
     public void remove(String id) throws PersistenceException {
-	// TODO Auto-generated method stub
+	// no implementado
 
     }
 
@@ -77,7 +77,7 @@ public class WorkOrderGatewayImpl implements WorkOrderGateway {
 
     @Override
     public List<WorkorderRecord> findAll() throws PersistenceException {
-	// TODO Auto-generated method stub
+	// no implementado
 	return null;
     }
 
@@ -96,7 +96,7 @@ public class WorkOrderGatewayImpl implements WorkOrderGateway {
 		}
 	    }
 	} catch (SQLException e) {
-	    throw new RuntimeException(e);
+	    throw new PersistenceException(e);
 	}
 	return ids;
     }
@@ -123,7 +123,7 @@ public class WorkOrderGatewayImpl implements WorkOrderGateway {
 		}
 	    }
 	} catch (SQLException e) {
-	    throw new RuntimeException(e);
+	    throw new PersistenceException(e);
 	}
 	return listIn;
     }
