@@ -4,11 +4,12 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -33,13 +34,15 @@ public class Contract extends BaseEntity {
     private double annualBaseSalary;
     private double taxRate;
     private double settlement;
+
+    @Enumerated(EnumType.STRING)
     private ContractState state = ContractState.IN_FORCE;
 
     // accidental attributes
     @ManyToOne
     private Mechanic mechanic;
     @ManyToOne
-    private ProfessionalGroup group;
+    private ProfessionalGroup professionalgroup;
     @ManyToOne
     private ContractType contractType;
     @OneToMany(mappedBy = "contract")
@@ -169,11 +172,11 @@ public class Contract extends BaseEntity {
     }
 
     public ProfessionalGroup getProfessionalGroup() {
-	return group;
+	return professionalgroup;
     }
 
     void _setProfessionalGroup(ProfessionalGroup group) {
-	this.group = group;
+	this.professionalgroup = group;
     }
 
     public ContractType getContractType() {
@@ -230,27 +233,6 @@ public class Contract extends BaseEntity {
 
     public void setState(ContractState state) {
 	this.state = state;
-    }
-
-    @Override
-    public int hashCode() {
-	return Objects.hash(mechanic, startDate);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (obj == null) {
-	    return false;
-	}
-	if (getClass() != obj.getClass()) {
-	    return false;
-	}
-	Contract other = (Contract) obj;
-	return Objects.equals(mechanic, other.mechanic)
-	    && Objects.equals(startDate, other.startDate);
     }
 
     @Override

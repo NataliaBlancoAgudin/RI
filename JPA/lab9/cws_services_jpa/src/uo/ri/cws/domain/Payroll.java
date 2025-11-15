@@ -3,7 +3,6 @@ package uo.ri.cws.domain;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
-import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -13,7 +12,7 @@ import uo.ri.cws.domain.base.BaseEntity;
 import uo.ri.util.assertion.ArgumentChecks;
 
 @Entity
-@Table(uniqueConstraints = {
+@Table(name = "TPayrolls", uniqueConstraints = {
     @UniqueConstraint(columnNames = { "CONTRACT_ID", "DATE" }) })
 public class Payroll extends BaseEntity {
 
@@ -25,9 +24,9 @@ public class Payroll extends BaseEntity {
     private double trienniumEarning;
     private double taxDeduction;
     private double nicDeduction;
-    private double totalDeductions;
-    private double netSalary;
-    private double grossSalary;
+//    private double totalDeductions;
+//    private double netSalary;
+//    private double grossSalary;
 
     // accidental Attributes
     @ManyToOne
@@ -38,8 +37,7 @@ public class Payroll extends BaseEntity {
 
     public Payroll(LocalDate date, double baseSalary, double extraSalary,
 	double productivityEarning, double trienniumEarning,
-	double taxDeduction, double nicDeduction, double totalDeductions,
-	double netSalary, double grossSalary, Contract contract) {
+	double taxDeduction, double nicDeduction, Contract contract) {
 	ArgumentChecks.isNotNull(date);
 	ArgumentChecks.isTrue(baseSalary >= 0);
 	ArgumentChecks.isTrue(extraSalary >= 0);
@@ -47,9 +45,9 @@ public class Payroll extends BaseEntity {
 	ArgumentChecks.isTrue(trienniumEarning >= 0);
 	ArgumentChecks.isTrue(taxDeduction >= 0);
 	ArgumentChecks.isTrue(nicDeduction >= 0);
-	ArgumentChecks.isTrue(totalDeductions >= 0);
-	ArgumentChecks.isTrue(netSalary >= 0);
-	ArgumentChecks.isTrue(grossSalary >= 0);
+//	ArgumentChecks.isTrue(totalDeductions >= 0);
+//	ArgumentChecks.isTrue(netSalary >= 0);
+//	ArgumentChecks.isTrue(grossSalary >= 0);
 	ArgumentChecks.isNotNull(contract);
 	ArgumentChecks.isTrue(!date.isBefore(contract.getStartDate()));
 
@@ -60,9 +58,9 @@ public class Payroll extends BaseEntity {
 	this.trienniumEarning = trienniumEarning;
 	this.taxDeduction = taxDeduction;
 	this.nicDeduction = nicDeduction;
-	this.totalDeductions = totalDeductions;
-	this.netSalary = netSalary;
-	this.grossSalary = grossSalary;
+//	this.totalDeductions = totalDeductions;
+//	this.netSalary = netSalary;
+//	this.grossSalary = grossSalary;
 
 	Associations.Generates.link(contract, this);
     }
@@ -71,22 +69,21 @@ public class Payroll extends BaseEntity {
 	this(date, calcBaseSalary(contract, date),
 	    calcExtraSalary(contract, date),
 	    calcProductivityEarning(contract, date),
-	    calcTrienniumEarning(contract, date), 0.0, 0.0, 0.0, 0.0, 0.0,
-	    contract);
+	    calcTrienniumEarning(contract, date), 0.0, 0.0, contract);
 
 	// Deducciones
 	double grossSalary = baseSalary + extraSalary + productivityEarning
 	    + trienniumEarning;
 	double taxDeduction = grossSalary * contract.getTaxRate();
 	double nicDeduction = (contract.getAnnualBaseSalary() * 0.05) / 12.0;
-	double totalDeductions = taxDeduction + nicDeduction;
-	double netSalary = grossSalary - totalDeductions;
+//	double totalDeductions = taxDeduction + nicDeduction;
+//	double netSalary = grossSalary - totalDeductions;
 
-	this.grossSalary = grossSalary;
+//	this.grossSalary = grossSalary;
 	this.taxDeduction = taxDeduction;
 	this.nicDeduction = nicDeduction;
-	this.totalDeductions = totalDeductions;
-	this.netSalary = netSalary;
+//	this.totalDeductions = totalDeductions;
+//	this.netSalary = netSalary;
 
     }
 
@@ -242,49 +239,30 @@ public class Payroll extends BaseEntity {
     }
 
     public double getTotalDeductions() {
-	return totalDeductions;
+	return taxDeduction + nicDeduction;
     }
 
-    public void setTotalDeductions(double totalDeductions) {
-	this.totalDeductions = totalDeductions;
-    }
+//    public void setTotalDeductions(double totalDeductions) {
+//	this.totalDeductions = totalDeductions;
+//    }
 
     public double getNetSalary() {
-	return netSalary;
+	return (baseSalary + extraSalary + productivityEarning
+	    + trienniumEarning) - (taxDeduction + nicDeduction);
     }
-
-    public void setNetSalary(double netSalary) {
-	this.netSalary = netSalary;
-    }
+//
+//    public void setNetSalary(double netSalary) {
+//	this.netSalary = netSalary;
+//    }
 
     public double getGrossSalary() {
-	return grossSalary;
+	return baseSalary + extraSalary + productivityEarning
+	    + trienniumEarning;
     }
-
-    public void setGrossSalary(double grossSalary) {
-	this.grossSalary = grossSalary;
-    }
-
-    @Override
-    public int hashCode() {
-	return Objects.hash(contract, date);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (obj == null) {
-	    return false;
-	}
-	if (getClass() != obj.getClass()) {
-	    return false;
-	}
-	Payroll other = (Payroll) obj;
-	return Objects.equals(contract, other.contract)
-	    && Objects.equals(date, other.date);
-    }
+//
+//    public void setGrossSalary(double grossSalary) {
+//	this.grossSalary = grossSalary;
+//    }
 
     @Override
     public String toString() {
@@ -292,9 +270,7 @@ public class Payroll extends BaseEntity {
 	    + ", extraSalary=" + extraSalary + ", productivityEarning="
 	    + productivityEarning + ", trienniumEarning=" + trienniumEarning
 	    + ", taxDeduction=" + taxDeduction + ", nicDeduction="
-	    + nicDeduction + ", totalDeductions=" + totalDeductions
-	    + ", netSalary=" + netSalary + ", grossSalary=" + grossSalary
-	    + ", contract=" + contract + "]";
+	    + nicDeduction + ", contract=" + contract + "]";
     }
 
 }

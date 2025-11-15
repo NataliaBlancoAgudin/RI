@@ -13,6 +13,36 @@
 	<named-query name="WorkOrder.findByIds">
 		<query>select w from WorkOrder w where w.id in ?1</query>
 	</named-query>
+	
+	<named-query name="WorkOrder.findByClientNif">
+		<query>
+			select w
+			from WorkOrder w
+				join w.vehicle v
+				join v.client c
+			where c.nif = ?1
+		</query>
+	</named-query>
+	
+	<named-query name="WorkOrder.findNotInvoicedByClientNif">
+		<query>
+			select w
+			from WorkOrder w
+				join w.vehicle v
+				join v.client c
+			where c.nif = ?1
+				and w.state = uo.ri.cws.domain.WorkOrder.WorkOrderState.FINISHED
+		</query>
+	</named-query>
+	
+	<named-query name="WorkOrder.findByPlateNumber">
+		<query>
+			select w
+			from WorkOrder w
+				join w.vehicle v
+			where v.plateNumber = ?1
+		</query>
+	</named-query>
 
 	<!-- PaymentMean queries -->
 	<named-query name="PaymentMean.findByInvoiceId">
@@ -49,6 +79,46 @@
 		This breaks if there is none invoice
 		<query>select max(f.number) + 1 from Invoice f</query>
 -->
+	</named-query>
+	
+	<!-- Payroll queries -->
+	<named-query name="Payroll.findByDateBetween">
+		<query>
+			<![CDATA[
+			select p
+			from Payroll p
+			where p.date <= ?1
+				and p.date >= ?2
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="Payroll.findByMechanicIdLastMonth">
+		<query>
+			<![CDATA[
+			select p
+			from Payroll p
+			where p.date <= ?1
+				and p.date >= ?2
+				and p.contract.mechanic.id = ?3
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="Payroll.findByMechanicId">
+		<query>
+			select p
+			from Payroll p
+			where p.contract.mechanic.id = ?1
+		</query>
+	</named-query>
+	
+	<named-query name="Payroll.findByProfessionalGroupName">
+		<query>
+			select p
+			from Payroll p
+			where p.contract.professionalgroup.name = ?1
+		</query>
 	</named-query>
 
 	<!-- 

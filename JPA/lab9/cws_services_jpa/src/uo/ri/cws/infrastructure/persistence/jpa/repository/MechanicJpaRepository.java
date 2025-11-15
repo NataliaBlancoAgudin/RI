@@ -12,9 +12,6 @@ public class MechanicJpaRepository extends BaseJpaRepository<Mechanic>
 
     @Override
     public Optional<Mechanic> findByNif(String nif) {
-	// aqui no puede estar la query
-	// getResultStream puedo tener un metood llamado findFirst que me
-	// devuelve un optional
 	return Jpa.getManager()
 		  .createNamedQuery("Mechanic.findByNif", Mechanic.class)
 		  .setParameter(1, nif)

@@ -4,28 +4,27 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
 import uo.ri.cws.domain.base.BaseEntity;
 import uo.ri.util.assertion.ArgumentChecks;
 
 @Entity
-@Table(
-		name="TCharges",
-		uniqueConstraints = {
-		@UniqueConstraint(columnNames = {
-				"INVOICE_ID", "PAYMENTMEAN_ID"
-		})
-})
-public class Charge extends BaseEntity{
+@Table(name = "TCharges", uniqueConstraints = {
+    @UniqueConstraint(columnNames = { "INVOICE_ID", "PAYMENTMEAN_ID" }) })
+
+public class Charge extends BaseEntity {
     // natural attributes
-	@Basic(optional=false) private double amount = 0.0;
+    @Basic(optional = false)
+    private double amount = 0.0;
 
     // accidental attributes
-    @ManyToOne private Invoice invoice;
-    @ManyToOne private PaymentMean paymentMean;
-    
-    Charge(){}
+    @ManyToOne
+    private Invoice invoice;
+    @ManyToOne
+    private PaymentMean paymentMean;
+
+    Charge() {
+    }
 
     public Charge(Invoice invoice, PaymentMean paymentMean, double amount) {
 	ArgumentChecks.isNotNull(invoice);

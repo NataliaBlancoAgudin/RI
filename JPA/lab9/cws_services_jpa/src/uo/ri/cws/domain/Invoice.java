@@ -81,6 +81,8 @@ public class Invoice extends BaseEntity {
 	for (WorkOrder w : workOrders) {
 	    addWorkOrder(w);
 	}
+
+	computeAmount();
     }
 
     /**
@@ -94,12 +96,12 @@ public class Invoice extends BaseEntity {
 	}
 
 	if (date.isBefore(DATE_LIMIT)) {
-	    this.vat = LOWER_PERCENTAGE;
+	    this.vat = total * LOWER_PERCENTAGE;
 	} else {
-	    this.vat = HIGHER_PERCENTAGE;
+	    this.vat = total * HIGHER_PERCENTAGE;
 	}
 
-	this.amount = total * (1 + vat);
+	this.amount = Math.floor((total + vat) * 100.0) / 100.0;
     }
 
     /**

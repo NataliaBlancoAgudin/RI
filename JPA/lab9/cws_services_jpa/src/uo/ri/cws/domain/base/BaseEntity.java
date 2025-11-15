@@ -8,6 +8,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Version;
 
 @MappedSuperclass
 public abstract class BaseEntity {
@@ -23,6 +24,8 @@ public abstract class BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private EntityState entityState = EntityState.ENABLED;
+
+    @Version
     private long version = 1;
 
     public BaseEntity() {

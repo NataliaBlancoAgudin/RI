@@ -7,6 +7,7 @@ import uo.ri.cws.application.repository.MechanicRepository;
 import uo.ri.cws.application.service.mechanic.MechanicCrudService.MechanicDto;
 import uo.ri.cws.application.util.command.Command;
 import uo.ri.cws.domain.Mechanic;
+import uo.ri.util.assertion.ArgumentChecks;
 import uo.ri.util.exception.BusinessChecks;
 import uo.ri.util.exception.BusinessException;
 
@@ -17,7 +18,11 @@ public class UpdateMechanic implements Command<Void> {
     private MechanicRepository repo = Factories.repository.forMechanic();
 
     public UpdateMechanic(MechanicDto dto) {
-	// TODO: chekear
+	// validaciones del dto pasado como parametro
+	ArgumentChecks.isNotNull(dto);
+	ArgumentChecks.isNotBlank(dto.nif);
+	ArgumentChecks.isNotBlank(dto.surname);
+	ArgumentChecks.isNotBlank(dto.name);
 
 	this.dto = dto;
 

@@ -7,10 +7,12 @@ import java.util.Set;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import uo.ri.cws.domain.base.BaseEntity;
 import uo.ri.util.assertion.ArgumentChecks;
 
 @Entity
+@Table(name = "TContractTypes")
 public class ContractType extends BaseEntity {
     // natural attributes
     @Basic(optional = false)

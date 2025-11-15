@@ -19,7 +19,8 @@ public class FindNotInvoicedWorkOrdersByClientNif
     private WorkOrderRepository wrepo = Factories.repository.forWorkOrder();
 
     public FindNotInvoicedWorkOrdersByClientNif(String nif) {
-	ArgumentChecks.isNotBlank(nif);
+	// validaciones
+	ArgumentChecks.isNotNull(nif);
 
 	this.nif = nif;
     }

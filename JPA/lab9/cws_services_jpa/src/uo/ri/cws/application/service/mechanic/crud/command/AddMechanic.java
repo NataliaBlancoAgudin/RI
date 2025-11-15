@@ -14,11 +14,14 @@ import uo.ri.util.exception.BusinessException;
 
 public class AddMechanic implements Command<MechanicDto> {
 
+    // dto del mecanico
     private MechanicDto dto;
 
+    // repo de mecanico
     private MechanicRepository repo = Factories.repository.forMechanic();
 
     public AddMechanic(MechanicDto dto) {
+	// validaciones del dto pasado como parametro
 	ArgumentChecks.isNotNull(dto);
 	ArgumentChecks.isNotBlank(dto.nif);
 	ArgumentChecks.isNotBlank(dto.surname);
@@ -30,6 +33,8 @@ public class AddMechanic implements Command<MechanicDto> {
 
     @Override
     public MechanicDto execute() throws BusinessException {
+	// comprobamos que no exista ya un mecanico con el nif pasado
+	// si es asi deberemos de lanzar una excepcion
 	Optional<Mechanic> om = repo.findByNif(dto.nif);
 	BusinessChecks.doesNotExist(om, "The mechanic already exists");
 

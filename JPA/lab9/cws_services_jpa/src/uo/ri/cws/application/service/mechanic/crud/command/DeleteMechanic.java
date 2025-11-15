@@ -33,6 +33,11 @@ public class DeleteMechanic implements Command<Void> {
 	BusinessChecks.isTrue(m.getAssigned().isEmpty(),
 	    "The mechanic has workorders");
 
+	BusinessChecks.isTrue(m.getContractInForce().isEmpty(),
+	    "The mechanic has contract in force");
+
+	repo.remove(m);
+
 	return null;
     }
 
