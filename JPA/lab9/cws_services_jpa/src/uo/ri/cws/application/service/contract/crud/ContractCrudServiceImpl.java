@@ -3,10 +3,15 @@ package uo.ri.cws.application.service.contract.crud;
 import java.util.List;
 import java.util.Optional;
 
+import uo.ri.conf.Factories;
 import uo.ri.cws.application.service.contract.ContractCrudService;
+import uo.ri.cws.application.service.mechanic.crud.command.ListCurrentMechanics;
+import uo.ri.cws.application.util.command.CommandExecutor;
 import uo.ri.util.exception.BusinessException;
 
 public class ContractCrudServiceImpl implements ContractCrudService {
+
+    private CommandExecutor executor = Factories.executor.forExecutor();
 
     @Override
     public ContractDto create(ContractDto c) throws BusinessException {
@@ -47,8 +52,7 @@ public class ContractCrudServiceImpl implements ContractCrudService {
 
     @Override
     public List<ContractDto> findInforceContracts() throws BusinessException {
-	// TODO Auto-generated method stub
-	return null;
+	return executor.execute(new ListCurrentMechanics());
     }
 
     @Override

@@ -24,4 +24,6 @@ public interface PayrollRepository extends Repository<Payroll> {
 
     List<Payroll> findByMechanicIdLastMonth(String id);
 
+    List<Payroll> findByDate(LocalDate date);
+
 }

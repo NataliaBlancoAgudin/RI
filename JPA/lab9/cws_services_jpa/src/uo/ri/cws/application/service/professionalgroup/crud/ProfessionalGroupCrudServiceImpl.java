@@ -3,42 +3,48 @@ package uo.ri.cws.application.service.professionalgroup.crud;
 import java.util.List;
 import java.util.Optional;
 
+import uo.ri.conf.Factories;
 import uo.ri.cws.application.service.professionalgroup.ProfessionalGroupCrudService;
+import uo.ri.cws.application.service.professionalgroup.crud.command.AddProfessionalGroup;
+import uo.ri.cws.application.service.professionalgroup.crud.command.DeleteProfessionalGroup;
+import uo.ri.cws.application.service.professionalgroup.crud.command.FindProfessionalGroupByName;
+import uo.ri.cws.application.service.professionalgroup.crud.command.ListAllProfessionalGroups;
+import uo.ri.cws.application.service.professionalgroup.crud.command.UpdateProfessionalGroup;
+import uo.ri.cws.application.util.command.CommandExecutor;
 import uo.ri.util.exception.BusinessException;
 
 public class ProfessionalGroupCrudServiceImpl
     implements ProfessionalGroupCrudService {
 
+    private CommandExecutor executor = Factories.executor.forExecutor();
+
     @Override
     public ProfessionalGroupDto create(ProfessionalGroupDto dto)
 	throws BusinessException {
-	// TODO Auto-generated method stub
-	return null;
+	return executor.execute(new AddProfessionalGroup(dto));
     }
 
     @Override
     public void delete(String name) throws BusinessException {
-	// TODO Auto-generated method stub
+	executor.execute(new DeleteProfessionalGroup(name));
 
     }
 
     @Override
     public void update(ProfessionalGroupDto dto) throws BusinessException {
-	// TODO Auto-generated method stub
+	executor.execute(new UpdateProfessionalGroup(dto));
 
     }
 
     @Override
     public Optional<ProfessionalGroupDto> findByName(String id)
 	throws BusinessException {
-	// TODO Auto-generated method stub
-	return Optional.empty();
+	return executor.execute(new FindProfessionalGroupByName(id));
     }
 
     @Override
     public List<ProfessionalGroupDto> findAll() throws BusinessException {
-	// TODO Auto-generated method stub
-	return null;
+	return executor.execute(new ListAllProfessionalGroups());
     }
 
 }

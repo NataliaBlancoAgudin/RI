@@ -120,6 +120,43 @@
 			where p.contract.professionalgroup.name = ?1
 		</query>
 	</named-query>
+	
+	<named-query name="Payroll.findByDate">
+		<query>
+			select p
+			from Payroll p
+			where p.date = ?1
+		</query>
+	</named-query>
+	
+	<!-- Professional group -->
+	<named-query name="ProfessionalGroup.findByName">
+		<query>
+			select p
+			from ProfessionalGroup p
+			where p.name = ?1
+		</query>
+	</named-query>
+	
+	<!-- Contracts -->
+	<named-query name="Contract.findInForceBetween">
+		<query>
+			<![CDATA[
+			select c
+			from Contract c
+			where c.state = uo.ri.cws.domain.Contract.ContractState.IN_FORCE
+				and c.startDate <= ?1
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="Contract.findWithContractInForce">
+		<query>
+			select c
+			from Contract c
+			where c.state = uo.ri.cws.domain.Contract.ContractState.IN_FORCE
+		</query>
+	</named-query>
 
 	<!-- 
 	Use this format if your query has greater than numeric comparisons the one

@@ -8,6 +8,8 @@ import uo.ri.conf.Factories;
 import uo.ri.cws.application.service.payroll.PayrollService;
 import uo.ri.cws.application.service.payroll.crud.command.DeleteLastMonthPayroll;
 import uo.ri.cws.application.service.payroll.crud.command.DeleteLastMonthPayrollOfMechanic;
+import uo.ri.cws.application.service.payroll.crud.command.FindAllPayrolls;
+import uo.ri.cws.application.service.payroll.crud.command.GeneratePayrollsAtDate;
 import uo.ri.cws.application.service.payroll.crud.command.ListPayrollsOfMechanic;
 import uo.ri.cws.application.service.payroll.crud.command.ListPayrollsOfProfGroup;
 import uo.ri.cws.application.service.payroll.crud.command.ShowPayroll;
@@ -28,8 +30,7 @@ public class PayrollServiceImpl implements PayrollService {
     @Override
     public List<PayrollDto> generateForPreviousMonthOf(LocalDate present)
 	throws BusinessException {
-	// TODO Auto-generated method stub
-	return null;
+	return executor.execute(new GeneratePayrollsAtDate(present));
     }
 
     @Override
@@ -52,8 +53,7 @@ public class PayrollServiceImpl implements PayrollService {
     @Override
     public List<PayrollSummaryDto> findAllSummarized()
 	throws BusinessException {
-	// TODO Auto-generated method stub
-	return null;
+	return executor.execute(new FindAllPayrolls());
     }
 
     @Override

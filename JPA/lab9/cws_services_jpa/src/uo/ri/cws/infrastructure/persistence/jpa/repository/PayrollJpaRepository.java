@@ -81,4 +81,12 @@ public class PayrollJpaRepository extends BaseJpaRepository<Payroll>
 		  .getResultList();
     }
 
+    @Override
+    public List<Payroll> findByDate(LocalDate date) {
+	return Jpa.getManager()
+		  .createNamedQuery("Payroll.findByDate", Payroll.class)
+		  .setParameter(1, date)
+		  .getResultList();
+    }
+
 }

@@ -9,32 +9,33 @@ import uo.ri.cws.domain.ProfessionalGroup;
 
 public class DtoAssembler {
 
+    public static Optional<ProfessionalGroupDto> toProfessionalGroupDto(
+	Optional<ProfessionalGroup> arg) {
+	ProfessionalGroupDto dto = null;
 
-	public static Optional<ProfessionalGroupDto> toProfessionalGroupDto(Optional<ProfessionalGroup> arg) {
-		ProfessionalGroupDto dto = null;
-		
-		if (arg.isPresent()) {
-			dto = toDto(arg.get());
-		}
-		return Optional.ofNullable(dto);
+	if (arg.isPresent()) {
+	    dto = toDto(arg.get());
 	}
+	return Optional.ofNullable(dto);
+    }
 
-	public static List<ProfessionalGroupDto> toProfessionalGroupDtoList(List<ProfessionalGroup> list) {
-		List<ProfessionalGroupDto> res = new ArrayList<>();
-		for (ProfessionalGroup m : list) {
-			res.add(toDto(m));
-		}
-		return res;
+    public static List<ProfessionalGroupDto> toProfessionalGroupDtoList(
+	List<ProfessionalGroup> list) {
+	List<ProfessionalGroupDto> res = new ArrayList<>();
+	for (ProfessionalGroup m : list) {
+	    res.add(toDto(m));
 	}
-	
-	private static ProfessionalGroupDto toDto(ProfessionalGroup m) {
-		ProfessionalGroupDto 	dto = new ProfessionalGroupDto();
-		dto.id = m.getId();
-		dto.version = m.getVersion();
+	return res;
+    }
 
-		dto.name = m.getName();
-		dto.productivityRate = m.getProductivityRate();
-		dto.trienniumPayment = m.getTrienniumPayment();
-		return dto;
-	}
+    public static ProfessionalGroupDto toDto(ProfessionalGroup m) {
+	ProfessionalGroupDto dto = new ProfessionalGroupDto();
+	dto.id = m.getId();
+	dto.version = m.getVersion();
+
+	dto.name = m.getName();
+	dto.productivityRate = m.getProductivityRate();
+	dto.trienniumPayment = m.getTrienniumPayment();
+	return dto;
+    }
 }
